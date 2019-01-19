@@ -15,7 +15,7 @@ module.exports = {
 
     // can be overwritten by process.env.HOST
     // if you want dev by ip, please set host: '0.0.0.0'
-    host: 'localhost',
+    host: '192.168.1.123',
     port: 9527, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
@@ -50,8 +50,9 @@ module.exports = {
     index: path.resolve(__dirname, '../dist/index.html'),
 
     // Paths
+    // assetsRoot: path.resolve(__dirname, '../dist'),
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
+    assetsSubDirectory: './static',
 
     /**
      * You can set by youself according to actual condition
@@ -60,12 +61,11 @@ module.exports = {
      * then assetsPublicPath should be set to "/bar/".
      * In most cases please use '/' !!!
      */
-    assetsPublicPath: '/',
-
-    /**
+    assetsPublicPath: './',
+    /** e19469ac 5c76252a
      * Source Maps
      */
-    productionSourceMap: false,
+    productionSourceMap: true,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: 'source-map',
 

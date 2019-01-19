@@ -67,6 +67,7 @@ export default {
         查询商家({state,rootGetters}){
             var 代理商信息=rootGetters['登陆/代理商信息'];
             var 管理员=rootGetters['登陆/管理员'];
+            console.log(管理员,代理商信息);
             var query={
                     start:0,
                     length:10,

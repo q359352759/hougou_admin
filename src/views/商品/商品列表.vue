@@ -120,14 +120,20 @@ export default {
             userInfo:'登陆/userInfo',
             areaManager:'登陆/代理商信息',
             管理员:'登陆/管理员',
+            登陆token:'登陆/登陆token',
             区域:'区域/区域',
+            区域列表:'区域/三级区域',
+            
             服务类型:'通用/服务类型',
             店铺类型:'通用/店铺类型'
         }),
-        区域列表(){
-            var list=convert(this.区域);
-            return list;
-        }
+        // 区域列表(){
+        //     var list=[]
+        //     setTimeout(x=>{
+        //         list=convert(this.区域);
+        //     },100)
+        //     return list;
+        // }
     },
     filters: {
         
@@ -176,21 +182,20 @@ export default {
         },
         //查看更多
         more(x){
-            location.href="../CommodityDetails/CommodityDetails.html?id="+x.id;
+            this.$router.push('/shangpin/xiangqing?id='+x.id);
         },
         //点击下架
         LowerShelf(x){
-            openloading(true)
+            this.openloading(true)
             var obj=Object.assign({},x)
                 obj.state=obj.state==0 ? 1 : 0;
                 obj.arrImg=x.img.split(',');
-            var access_token=localStorage.access_token;
             this.$axios({
                 method:'post',
                 url:'/api-s/shops/commodity/update?_='+new Date().getTime(),
                 data:[obj],
                 headers:{
-                    "Authorization" : "Bearer " + localStorage.getItem("access_token")
+                    "Authorization" : "Bearer " + this.登陆token.access_token
                 }
             }).then(res=>{
                 if(res.data.code==200){
@@ -199,37 +204,11 @@ export default {
                 }else{
                     this.$message.error(res.data.msg ? res.data.msg : x.data.message);
                 }
-                openloading(false)
+                this.openloading(false)
             }).catch(err=>{
                 this.$message.error('系统错误稍后再试。');
-                openloading(false)
+                this.openloading(false)
             })
-
-            // this.$http({
-            //     method:'post',
-            //     url:ip+'/api-s/shops/commodity/update?_='+new Date().getTime(),
-            //     // 1547780997035
-            //     body:[obj],
-            //     headers:{
-            //         "Authorization" : "Bearer " + localStorage.getItem("access_token")
-            //     }
-            // }).then(res=>{
-            //     console.log(res)
-            //     if(res.body.code==200){
-            //         this.$message({
-            //             message: '设置成功。',
-            //             type: 'success'
-            //         });
-            //         x.state=x.state==0 ? 1 : 0;
-            //     }else if(res.body.code){
-            //         this.$message.error(res.body.msg);
-            //     }else{
-            //         this.$message.error(res.body.message);
-            //     }
-            // },error=>{
-            //     this.$message.error('系统错误稍后再试。');
-            //     console.log(error);
-            // })
         },
         //时间选择
         timeChange(x){

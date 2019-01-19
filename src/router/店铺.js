@@ -5,7 +5,7 @@ const 店铺 = {
     component:Layout,
     meta:{
         title:'店铺',
-        icon: 'guide'
+        icon: 'dianpu'
     },
     // alwaysShow: true, //一直显示根路由
     children:[
@@ -13,13 +13,13 @@ const 店铺 = {
             path:'/dianpu/liebiao',
             component: () => import('@/views/店铺/店铺列表.vue'),
             name:'dianpuliebiao',
-            meta: { title: '店铺列表', icon: 'guide', noCache: true }
+            meta: { title: '店铺列表', icon: 'list', noCache: true }
         },
         {
             path:'/dianpu/xiugaiLibiao',
             component: () => import('@/views/店铺/店铺修改列表.vue'),
             name:'dianpu_xiugaiLibiao',
-            meta: { title: '店铺修改列表', icon: 'guide', noCache: true }
+            meta: { title: '店铺修改列表', icon: 'list', noCache: true }
         },
         {
             path:'/dianpu/tianJiaShenHe',
@@ -27,7 +27,7 @@ const 店铺 = {
             name:'dianpu_tianJiaShenHe',
             hidden:true,
             // redirect: 'dianpuliebiao',
-            meta: { title: '店铺申请审核', icon: 'guide', noCache: true ,breadcrumb: false }
+            meta: {不快速导航:true, title: '店铺申请审核', icon: 'guide', noCache: true ,breadcrumb: false }
         },{
             path:'/dianpu/xiugaiXiangqing',
             component:() => import('@/views/店铺/店铺修改详情.vue'),

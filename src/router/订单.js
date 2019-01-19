@@ -13,7 +13,7 @@ const 店铺 = {
             path:'/dingdan/liebiao',
             component: () => import('@/views/订单/订单列表.vue'),
             name:'dingdan_liebiao',
-            meta: { title: '订单列表', icon: 'guide', noCache: true }
+            meta: { title: '订单', icon: '订单', noCache: true }
         },
     ]
 }

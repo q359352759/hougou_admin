@@ -5,10 +5,10 @@
             <el-col :span="8" class="统计">
                 <ul>
                     <li class="标题">商家</li>
-                    <li class="鼠标样式" @click="$router.push('/dailishang/dianpuliebiao?state=1')">商家：{{所有数据.商家.total}}家</li>
+                    <li class="鼠标样式" @click="$router.push('/dianpu/liebiao?state=1')">商家：{{所有数据.商家.total}}家</li>
                     <li>今日新增：-0家 </li>
-                    <li>申请入驻待审核：{{所有数据.商家入驻待审核.total}}家<span @click="$router.push('/dailishang/dianpuliebiao?state')" class="蓝色字体 ">去审核</span></li>
-                    <li>资料修改待审核：{{所有数据.商家修改待审核.total}}家 <span @click="$router.push('/dailishang/dianpu/xiuGaiLieBiao')" class="蓝色字体">去审核</span></li>
+                    <li>申请入驻待审核：{{所有数据.商家入驻待审核.total}}家<span @click="$router.push('/dianpu/liebiao')" class="蓝色字体 ">去审核</span></li>
+                    <li>资料修改待审核：{{所有数据.商家修改待审核.total}}家 <span @click="$router.push('/dianpu/xiugaiLibiao')" class="蓝色字体">去审核</span></li>
                     <li>待查阅商品：-0个 <span class="蓝色字体">去查阅</span> </li>
                     <li>待查阅店铺简介：-0个 <span class="蓝色字体">去查阅</span></li>
                 </ul>

@@ -328,7 +328,7 @@ export default {
                 url:'/api-s/shops/update',
                 data:obj
             }).then(x=>{
-                if(x.body.code==200){
+                if(x.data.code==200){
                    this.update_index++;
                     if(this.update_index==this.index){
                         this.$alert('设置成功！', '提示', {
@@ -342,13 +342,15 @@ export default {
                     this.$message({ showClose: true, message: x.data.msg ? x.data.msg : x.data.message, type: 'error' });
                 }
             }).catch(err=>{
-                this.$message({showClose: true,message: '系统错误，稍后再试。',type: 'error'});
+                this.$message({showClose: true,message: '系统错误，稍后再试2。',type: 'error'});
             })
         },
         //修改 修改后的状态
         update_update(obj){
             this.$axios.post('/api-s/shops/update/update',obj).then(x=>{
+                console.log(x);
                 if(x.data.code==200){
+                    console.log('修改成功');
                     this.update_index++
                     if(this.update_index==this.index){
                         this.$alert('设置成功！', '提示', {
@@ -362,7 +364,7 @@ export default {
                     this.$message({ showClose: true, message: x.data.msg ? x.data.msg : x.data.message, type: 'error' });
                 }
             }).catch(err=>{
-                this.$message({ showClose: true, message:'系统错误，稍后再试。', type: 'error' });
+                this.$message({ showClose: true, message:'系统错误，稍后再试1。', type: 'error' });
             })
         },
         delete_1(){
@@ -375,7 +377,7 @@ export default {
                         }
                     });
                 }else{
-                    this.$message({ showClose: true, message: x.body.msg, type: 'error' });
+                    this.$message({ showClose: true, message: x.data.msg ? x.data.msg : x.data.message, type: 'error' });
                 }
             }).catch(err=>{
                 this.$message({ showClose: true, message: '系统错误，稍后再试。', type: 'error' });

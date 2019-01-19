@@ -15,7 +15,11 @@ import nestedRouter from './modules/nested'
 import 店铺 from './店铺.js'
 import 订单 from './订单.js'
 import 商品 from './商品.js'
-
+import 代理人 from './代理人.js'
+import 评论 from './评论.js'
+// 管理员
+import 提现 from './提现.js'
+import 红购使者 from './红购使者.js'
 /** note: Submenu only appear when children.length>=1
  *  detail see  https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
  **/
@@ -117,7 +121,7 @@ export const constantRouterMap = [
                 path: '/zonglan',
                 component: () => import('@/views/总览.vue'),
                 name: 'zonglan',
-                meta: { title: '总览', icon: 'guide', noCache: true }
+                meta: { title: '总览', icon: 'chart', noCache: true }
                 // meta: {
                 //     roles: ['admin', 'editor'] //设置该路由进入的权限，支持多个权限叠加
                 //     title: 'title' //设置该路由在侧边栏和面包屑中展示的名字
@@ -130,7 +134,10 @@ export const constantRouterMap = [
     },
     店铺,
     订单,
-    商品
+    商品,
+    代理人,
+    红购使者,
+    评论
 ]
 
 export default new Router({
@@ -140,7 +147,7 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-
+    提现,
     // {
     //     path: '/permission',
     //     component: Layout,
@@ -175,6 +182,10 @@ export const asyncRouterMap = [
     {
         path: '/icon',
         component: Layout,
+        meta: {
+            title: 'pagePermission',
+            roles: ['admin']
+        },
         children: [
             {
                 path: 'index',

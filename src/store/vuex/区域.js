@@ -1,7 +1,7 @@
 import axios from '@/api/axios.js'
 import qs from "qs";
 
-
+import { convert } from "@/assets/js/currency.js";
 
 export default {
     namespaced:true,
@@ -11,6 +11,10 @@ export default {
     getters:{
         区域(state){
             return state.区域;
+        },
+        三级区域(state){
+            var list=convert(state.区域);
+            return list
         }
     },
     mutations:{

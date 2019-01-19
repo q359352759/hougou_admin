@@ -64,12 +64,19 @@ service.interceptors.response.use(
   //   }
   // },
   error => {
-    console.log('err' + error) // for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
+    if(error){
+      if (error.response) {
+          return error.response;
+      }
+    }
+    // return Promise.reject(error.response); // 返回接口返回的错误信息
+
+    // console.log('err' + error) // for debug
+    // Message({
+    //   message: error.message,
+    //   type: 'error',
+    //   duration: 5 * 1000
+    // })
     return Promise.reject(error)
   }
 )

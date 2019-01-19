@@ -41,6 +41,7 @@ exports.cssLoaders = function(options) {
     } else {
       loaders.push('vue-style-loader')
     }
+    
 
     loaders.push(cssLoader)
 
@@ -85,7 +86,6 @@ exports.styleLoaders = function(options) {
       use: loader
     })
   }
-
   return output
 }
 

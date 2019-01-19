@@ -248,7 +248,9 @@ export default {
             服务类型:'通用/服务类型',
             区域:'区域/区域',
             userInfo:'登陆/userInfo',
-            代理商信息:'登陆/代理商信息'
+            代理商信息:'登陆/代理商信息',
+            管理员:'登陆/管理员'
+            
         })
     },
     methods: {
@@ -302,7 +304,8 @@ export default {
         查询数据() {
             this.isloading(true);
             this.列表=[];
-            // this.query.areaCode=this.代理商信息.areaCode
+            
+            this.query.areaCode=this.管理员 ? '' : this.代理商信息.areaCode
             this.query.startTime=this.选择的时间 ? this.选择的时间[0] : '';
             this.query.endTime=this.选择的时间 ? this.选择的时间[1] : '';
             this.query.start=(this.page_index-1)*this.query.length;
