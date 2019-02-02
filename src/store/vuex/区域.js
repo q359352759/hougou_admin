@@ -15,7 +15,7 @@ export default {
         三级区域(state){
             var list=convert(state.区域);
             return list
-        }
+        },
     },
     mutations:{
         设置区域(state,obj){

@@ -24,89 +24,99 @@
                     value-format="yyyy-MM-dd dd:hh:mm">
                 </el-date-picker>
             </li>
-            <li><el-input style="width:150px" size="mini" clearable class="input_1" v-model="query.referrerPhone"  placeholder="推荐人"></el-input></li>
-            <li><el-input style="width:150px" size="mini" clearable v-model="query.name" placeholder="商家名称"></el-input></li>
-            <li v-show="管理员"><el-cascader placeholder="请选择区域" style="width:250px" size="mini" expand-trigger="hover" :options="区域列表" :props="address_props" :clearable="true" v-model="area" @change="handleChange"></el-cascader></li>
-            <li><el-cascader placeholder="请选择类型" style="width:180px" size="mini" expand-trigger="hover" :options="店铺类型" :props="address_props" :clearable="true" v-model="shopsType" @change="typeChange"></el-cascader></li>
-            <li><el-button size="mini" icon="el-icon-search" @click="waitpay()" circle></el-button></li>
-            <li><el-button size="mini" type="info" round @click="qingkong()">清空</el-button></li>
+            <li>
+                <el-input style="width:150px" size="mini" clearable class="input_1" v-model="query.referrerPhone"  placeholder="推荐人"></el-input>
+            </li>
+            <li>
+                <el-input style="width:150px" size="mini" clearable v-model="query.name" placeholder="商家名称"></el-input>
+            </li>
+            <li v-show="管理员">
+                <el-cascader placeholder="请选择区域" @active-item-change="handleItemChange" style="width:250px" size="mini" expand-trigger="hover" :options="区域列表" :props="address_props" :clearable="true" v-model="area" @change="handleChange"></el-cascader>
+            </li>
+            <li>
+                <el-cascader placeholder="请选择类型" style="width:180px" size="mini" expand-trigger="hover" :options="店铺类型" :props="address_props" :clearable="true" v-model="shopsType" @change="typeChange"></el-cascader>
+            </li>
+            <li>
+                <el-button size="mini" icon="el-icon-search" @click="waitpay()" circle></el-button>
+            </li>
+            <li>
+                <el-button size="mini" type="info" round @click="qingkong()">清空</el-button>
+            </li>
         </ul>
 
         <div class="box_3" >
-                <el-table :data="table_list" border size="mini" style="margin:10px 0px 0px;width: 100%;text-align: center">
-                    <el-table-column prop="name" label="申请商家" align="center"></el-table-column>
-                    <el-table-column label="区域" align="center" width="250">
-                        <template slot-scope="scope">
-                            <div class="area">
-                                {{scope.row.areaCode | 过滤后区域}}
-                            </div>
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="createTime" label="时间" align="center">
-                        <template slot-scope="scope">
-                            <div>
-                                {{scope.row.createTime | filter_time('yyyy-MM-dd')}}
-                            </div>
-                            <div>
-                                {{scope.row.createTime | filter_time('hh:mm')}}
-                            </div>
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="referrerPhone" label="推荐人" align="center"></el-table-column>
-                    <el-table-column label="法人" align="center">
-                        <template slot-scope="scope">
-                            <el-button @click="查看实名认证(scope.row)" size="mini" type="text">{{scope.row.iaiName}}</el-button>
-                        </template>
-                    </el-table-column>
-                    <el-table-column label="营业执照" align="center">
-                        <template slot-scope="scope">
-                            <el-button @click="查看营业执照(scope.row)" size="mini" type="text">{{scope.row.businessNature=='1' ? '个体经营' : '实体'}}</el-button>
-                        </template>
-                    </el-table-column>
-                    <el-table-column label="分类" align="center">
-                        <template slot-scope="scope">
-                            {{scope.row.shopType | filter_type }}
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="phone" label="联系电话" align="center"></el-table-column>
-                    <el-table-column label="地址信息" align="center">
-                        <template slot-scope="scope">
-                            <el-button @click="查看地址(scope.row)" size="mini" type="text">查看</el-button>
-                        </template>
-                    </el-table-column>
-                    <el-table-column label="店招" align="center">
-                        <template slot-scope="scope">
-                            <el-button size="mini" @click="查看图片(scope.row.signboard,0)" type="text">查看</el-button>
-                        </template>
-                    </el-table-column>
-                    <el-table-column label="环境图片" align="center">
-                        <template slot-scope="scope">
-                            <el-button size="mini" @click="查看图片(scope.row.environmentalImg,0)" type="text">查看</el-button>
-                        </template>
-                    </el-table-column>
-                    <el-table-column label="服务" align="center">
-                        <template slot-scope="scope">
-                            <el-popover
-                                placement="top"
-                                width="200"
-                                trigger="click"
-                                :content="scope.row.serviceType | filter_serviceType">
-                                <el-button slot="reference" size="mini" type="text">查看</el-button>
-                            </el-popover>
-                        </template>
-                    </el-table-column>
+            <el-table :data="table_list" border size="mini" style="margin:10px 0px 0px;width: 100%;text-align: center">
+                <el-table-column prop="name" label="申请商家" align="center"></el-table-column>
+                <el-table-column label="区域" align="center" width="250">
+                    <template slot-scope="scope">
+                        <div class="area">
+                            {{scope.row.areaCode | 过滤后区域}}
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="createTime" label="时间" align="center">
+                    <template slot-scope="scope">
+                        <div>
+                            {{scope.row.createTime | filter_time('yyyy-MM-dd')}}
+                        </div>
+                        <div>
+                            {{scope.row.createTime | filter_time('hh:mm')}}
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="referrerPhone" label="推荐人" align="center"></el-table-column>
+                <el-table-column label="法人" align="center">
+                    <template slot-scope="scope">
+                        <el-button @click="查看实名认证(scope.row)" size="mini" type="text">{{scope.row.iaiName}}</el-button>
+                    </template>
+                </el-table-column>
+                <el-table-column label="营业执照" align="center">
+                    <template slot-scope="scope">
+                        <el-button @click="查看营业执照(scope.row)" size="mini" type="text">{{scope.row.businessNature=='1' ? '个体经营' : '实体'}}</el-button>
+                    </template>
+                </el-table-column>
+                <el-table-column label="分类" align="center">
+                    <template slot-scope="scope">
+                        {{scope.row.shopType | filter_type }}
+                    </template>
+                </el-table-column>
+                <el-table-column prop="phone" label="联系电话" align="center"></el-table-column>
+                <el-table-column label="地址信息" align="center">
+                    <template slot-scope="scope">
+                        <el-button @click="查看地址(scope.row)" size="mini" type="text">查看</el-button>
+                    </template>
+                </el-table-column>
+                <el-table-column label="店招" align="center">
+                    <template slot-scope="scope">
+                        <el-button size="mini" @click="查看图片(scope.row.signboard,0)" type="text">查看</el-button>
+                    </template>
+                </el-table-column>
+                <el-table-column label="环境图片" align="center">
+                    <template slot-scope="scope">
+                        <el-button size="mini" @click="查看图片(scope.row.environmentalImg,0)" type="text">查看</el-button>
+                    </template>
+                </el-table-column>
+                <el-table-column label="服务" align="center">
+                    <template slot-scope="scope">
+                        <el-popover
+                            placement="top"
+                            width="200"
+                            trigger="click"
+                            :content="scope.row.serviceType | filter_serviceType">
+                            <el-button slot="reference" size="mini" type="text">查看</el-button>
+                        </el-popover>
+                    </template>
+                </el-table-column>
 
-                    <el-table-column fixed="right" label="操作" width="200" align="center">
-                        <template slot-scope="scope">
-                            <el-button size="mini" @click="tongyi(scope.row)" v-if="scope.row.state==0" type="text">同意</el-button>
-                            <span class="text-red" @click="jujue(scope.row)" v-if="scope.row.state==0" style="color:red">拒绝</span>
-                            <!-- <el-button size="mini" @click="tongyi(scope.row)" type="text">同意</el-button>
-                            <span class="text-red" @click="jujue(scope.row)" style="color:red">拒绝</span> -->
-                            <el-button @click="$router.push('/dianpu/tianJiaShenHe?id='+scope.row.id)" size="mini" type="text">查看更多</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
-            </div>
+                <el-table-column fixed="right" label="操作" width="200" align="center">
+                    <template slot-scope="scope">
+                        <el-button size="mini" @click="tongyi(scope.row)" v-if="scope.row.state==0" type="text">同意</el-button>
+                        <span class="text-red" @click="jujue(scope.row)" v-if="scope.row.state==0" style="color:red">拒绝</span>
+                        <el-button @click="$router.push('/dianpu/tianJiaShenHe?id='+scope.row.id)" size="mini" type="text">查看更多</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
 
         <!-- 法人 -->
         <el-dialog class="legal_person_box" title="法人信息" center :visible.sync="显示法人认证" width="360px">
@@ -160,20 +170,6 @@
 </template>
 
 <script>
-//递归
-// function convert(arr, id) {
-//     var res = [];
-//     for (var i = 0; i < arr.length; i++) {
-//         if (arr[i].parentid == id) {
-//             res.push(arr[i]);
-//             var children = convert(arr, arr[i].id);
-//             if (children.length > 0) {
-//                 arr[i].children = convert(arr, arr[i].id);
-//             }
-//         }
-//     }
-//     return res;
-// }
 
 //反向递归
 function get_url(list, type, return_list) {
@@ -226,7 +222,7 @@ var 店铺类型_1=[];
 import { mapGetters } from "vuex";
 import { dateFtt , 过滤地区 ,convert } from "@/assets/js/currency.js";
 
-import farenrenzheng from '@/views/代理商/components/法人认证弹出框.vue';
+const farenrenzheng= () => import('@/views/代理商/components/法人认证弹出框.vue')
 import $ from 'jquery';
 export default {
     name:'',
@@ -241,7 +237,7 @@ export default {
             serviceType_list:[],    //服务列表
             address_props: {
                 value: 'id',
-                label: 'name',
+                label: 'name'
             },
             Referee_dialog: false,   //
             legal_person_box: false,  //法人弹出框
@@ -276,7 +272,8 @@ export default {
 
             显示法人认证:false,
             认证详情:'',
-            图片放大前一步:0
+            图片放大前一步:0,
+            区域列表:[]
         }
     },
     components:{
@@ -326,12 +323,9 @@ export default {
             区域:'区域/区域',
             服务类型:'通用/服务类型',
             店铺类型:'通用/店铺类型',
-            管理员:'登陆/管理员'
+            管理员:'登陆/管理员',
+            三级区域:'区域/三级区域'
         }),
-        区域列表(){
-            var list=convert(this.区域);
-            return list
-        }
     },
     methods: {
         //同意
@@ -483,14 +477,23 @@ export default {
                 this.table_list = x.data.data.data
                 this.list_total=x.data.data.total
             })
+        },
+        handleItemChange(val){
+            console.log(val)
         }
     },
     mounted() {
+        console.log('页面加载完成')
         this.query.state=this.$route.query.state ? this.$route.query.state : 0 ; 
         this.查询数据();
+        
+
         区域列表=this.区域;
         服务类型_1=this.服务类型;
         店铺类型_1=this.店铺类型;
+        // setTimeout(x=>{
+            this.区域列表=this.三级区域
+        // },500)
 
         // console.log(this.区域)
         // console.log(this.服务类型)

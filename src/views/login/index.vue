@@ -280,6 +280,7 @@ export default {
 	align-items: center;
 	justify-content:flex-end;
 	overflow: hidden;
+	min-width: 1080px;
 }
 .外层{
 	// border:1px solid red;
@@ -360,6 +361,8 @@ export default {
 		left: 0px;
 	}
 	.img_4{
+		top: 0px;
+		left: 0px;
 		animation: 旋转1 40s linear infinite;
 	}
 	.img_5{

@@ -105,7 +105,7 @@ function convert(arr, id) {
             res.push(arr[i]);
             var list=convert(arr, arr[i].id)
             if(list.length>0){
-                arr[i].children = list;                
+                arr[i].children = list;  
             }
         }
     }

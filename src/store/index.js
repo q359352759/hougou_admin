@@ -16,6 +16,9 @@ import 登陆 from './vuex/登陆.js'
 import 代理商 from './vuex/代理商.js';
 import 区域 from './vuex/区域.js'
 import 通用 from './vuex/通用.js'
+import 帮助中心 from './vuex/帮助中心.js'
+import 分销 from './vuex/分销.js'
+import 加载中 from './vuex/加载中.js'
 const store = new Vuex.Store({
 	plugins: [       //储存部分
 		createPersistedState({
@@ -35,11 +38,13 @@ const store = new Vuex.Store({
 		permission,
 		tagsView,
 		user,
-
+		加载中,
 		登陆:登陆,
 		区域,
 		代理商,
-		通用
+		通用,
+		帮助中心,
+		分销
 	},
 	getters
 })

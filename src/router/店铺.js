@@ -1,5 +1,19 @@
 
 import Layout from '@/views/layout/Layout'
+import { Loading } from 'element-ui';
+
+const 店铺列表 = resolve => { 
+    var loadingInstance = Loading.service();
+    console.log('开始加载')
+    require.ensure([], () => { 
+            resolve(require("@/views/店铺/店铺列表.vue")); 
+        console.log('加载完成')
+        setTimeout(x=>{
+            loadingInstance.close();
+        },2000)
+    });
+};
+
 const 店铺 = {
     path:'/dianpu',
     component:Layout,
@@ -11,7 +25,8 @@ const 店铺 = {
     children:[
         {
             path:'/dianpu/liebiao',
-            component: () => import('@/views/店铺/店铺列表.vue'),
+            // component: () => import('@/views/店铺/店铺列表.vue'),
+            component:店铺列表,
             name:'dianpuliebiao',
             meta: { title: '店铺列表', icon: 'list', noCache: true }
         },
