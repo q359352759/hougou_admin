@@ -24,6 +24,18 @@ import 帮助中心 from './帮助中心.js'
 import 分销 from './分销.js'
 
 export const constantRouterMap = [
+    {
+        path: '/dashboard',
+        component: Layout,
+        children: [
+            {
+                path: 'dashboard',
+                component: () => import('@/views/dashboard/index'),
+                name: 'Dashboard',
+                meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
+            }
+        ]
+    },
 
     {
         path: '/redirect',

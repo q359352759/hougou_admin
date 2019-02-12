@@ -1,5 +1,16 @@
 <template>
     <div class="app-container">
+        <el-row class="">
+            <el-col :span="4">10家</el-col>
+            <el-col :span="1"></el-col>
+            <el-col :span="4">10</el-col>
+            <el-col :span="1"></el-col>
+            <el-col :span="4">10</el-col>
+            <el-col :span="1"></el-col>
+            <el-col :span="4">10</el-col>
+            <el-col :span="1"></el-col>
+            <el-col :span="4">10</el-col>
+        </el-row>
         <el-row>
             <el-col :span="24" class="地址">{{过滤后区域}}</el-col>
             <el-col :span="8" class="统计">

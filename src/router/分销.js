@@ -29,8 +29,22 @@ const 分销 = {
             name:'fenxiao_xiangqing',
             hidden:true,
             meta: { 不快速导航:true,title: '分销详情', icon: 'guide', noCache: true , breadcrumb: false}
-            
-        }
+        },
+
+        
+        // {
+        //     path:'/fenxiao/xiugaiLiebiao',
+        //     component: () => import('@/views/分销管理/修改列表.vue'),
+        //     name:'fenxiao_xiugaiLiebiao',
+        //     meta: { title: '修改列表', icon: 'guide', noCache: true }
+        // },
+        // {
+        //     path:'/fenxiao/xiugaiXiangqing',
+        //     component: () => import('@/views/分销管理/修改详情.vue'),
+        //     name:'fenxiao_xiugaiXiangqing',
+        //     hidden:true,
+        //     meta: { 不快速导航:true,title: '修改详情', icon: 'guide', noCache: true , breadcrumb: false}
+        // }
         // {
         //     path:'/shangpin/xiangqing',
         //     component: () => import('@/views/商品/商品详情.vue'),

@@ -9,16 +9,21 @@
             <el-row>
                 <el-col :span="12">
                     <ul class="box_3">
-                        <li class="标题1">修改前</li>
-                        <li class="申请时间">申请时间：{{招募信息.applytime | 时间格式化}}</li>
+                        <!-- <li class="标题1">修改前</li> -->
+                        <li class="申请时间">
+                            申请时间：
+                            <span v-if="招募信息.updatetime">{{招募信息.updatetime | 时间格式化}}</span>
+                            <span v-if="!招募信息.updatetime">{{招募信息.applytime | 时间格式化}}</span>
+                        </li>
                         <li>
                             <span>状态：</span>
                             <span v-show="招募信息.state==0">未处理</span>
                             <span v-show="招募信息.state==1">已通过</span>
                             <span v-show="招募信息.state==2">已驳回</span>
                         </li>
-                        <li v-show="招募信息.state==2">
-                            <span>驳回理由：</span>
+                        <li v-show="招募信息.state==2 || 招募信息.state==3">
+                            <span v-show="招募信息.state==2">驳回理由：</span>
+                            <span v-show="招募信息.state==3">隐藏理由：</span>
                             <div v-html="招募信息.cause"></div>
                         </li>
                         <li>业务：{{业务_1}}</li>
@@ -46,11 +51,13 @@
                         <li class="按钮">
                             <el-button v-if="招募信息.state==0" @click="修改(2)" size="mini" type="danger" round>拒绝</el-button>
                             <el-button v-if="招募信息.state==0" @click="修改(1)" size="mini" type="primary" round>同意</el-button>
+                            <el-button v-if="招募信息.state==1" @click="修改(3)" size="mini" type="primary" round>隐藏</el-button>
+                            <el-button v-if="招募信息.state==3" @click="修改(1)" size="mini" type="primary" round>取消隐藏</el-button>
                         </li>
                     </ul>
                 </el-col>
                 <el-col :span="12">
-                    <ul class="box_3">
+                    <ul class="box_3" v-show="false">
                         <li class="标题1">修改后</li>
                         <li class="申请时间">申请时间：</li>
                         <li>状态:</li>
@@ -71,7 +78,7 @@
             </el-row>
         </el-main>
         <!-- 驳回弹出框 -->
-        <el-dialog size="mini" class="cause_box" custom-class="class_1" title="驳回内容" :visible.sync="显示驳回输入框" width="360px">
+        <el-dialog size="mini" class="cause_box" custom-class="class_1" title="请输入理由" :visible.sync="显示驳回输入框" width="360px">
             <div contenteditable="true" ref="驳回理由" class="text_box"></div>
             <span slot="footer" class="dialog-footer">
                 <el-button size="mini" @click="显示驳回输入框 = false">取 消</el-button>
@@ -84,7 +91,7 @@
 <script>
 import { dateFtt , get_url } from "@/assets/js/currency.js";
 
-import { mapActions } from "vuex";
+import { mapGetters , mapActions } from "vuex";
 export default {
     name:"",
     data () {
@@ -93,7 +100,8 @@ export default {
             招募信息_1:{},
             自定义业务:[],
             业务类型:[],
-            显示驳回输入框:false
+            显示驳回输入框:false,
+            type:2      //用于驳回和隐藏
         }
     },
     filters:{
@@ -106,6 +114,9 @@ export default {
         }
     },
     computed: {
+        ...mapGetters({
+            userInfo:'登陆/userInfo'
+        }),
         业务_1(){
             var str='';
             var list=this.招募信息.cbonum ? this.招募信息.cbonum.split(',') : [];
@@ -124,6 +135,7 @@ export default {
     methods: {
         ...mapActions({
             加载:'加载中/加载',
+            查询分销:"分销/查询分销",
             根据id查询分销:"分销/根据id查询分销",
             查询自定义业务:"分销/查询自定义业务",
             修改分销:"分销/修改分销",
@@ -138,6 +150,7 @@ export default {
                     obj.state=1;
                 this.调用修改接口(obj);
             }else{
+                this.type=x
                 this.显示驳回输入框=true;
             }
         },
@@ -147,10 +160,10 @@ export default {
             var html=this.$refs.驳回理由.innerHTML;
             var kong=/^\s*$/;
             if(kong.test(text)){
-                this.$message({showClose: true,message: '请输入驳回理由',type: 'error'});
+                this.$message({showClose: true,message: '请输入理由',type: 'error'});
             }else{
                 var obj=Object.assign({},this.招募信息);
-                    obj.state=2;
+                    obj.state=this.type;
                     obj.cause=html;
                 this.调用修改接口(obj);
             }
@@ -180,10 +193,15 @@ export default {
                 }
                 if(x[1].data.code==200){
                     this.招募信息=x[1].data.data;
+                    this.招募信息.isconsulted=1;
+                    this.assessorid=this.userInfo.username
+                    this.修改分销(this.招募信息)
                 }
                 if(x[2].data.code==200){
                     this.自定义业务=x[2].data.data.data;
                 }
+
+                
                 this.加载(false)
             }).catch(err=>{
                 this.加载(false)
@@ -191,6 +209,7 @@ export default {
         }
     },
     mounted() {
+        
         this.初始化();
     },
 }

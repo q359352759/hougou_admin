@@ -24,7 +24,6 @@ export default {
             });
         },
         根据id查询分销({},id){
-            // /shops/findShopRecruitmentById/{id}
             return new Promise((resolve, reject) => {
                 axios.get('/api-s/shops/findShopRecruitmentById/'+id).then(x=>{
                     resolve(x)
@@ -52,6 +51,33 @@ export default {
                     resolve(x);
                 }).catch(err=>{
                     reject(err);
+                })
+            });
+        },
+        查询修改列表({},query){
+            return new Promise((resolve, reject) => {
+                axios.get('/api-s/shops/findShopRecruitmentCopyAll',{params:query}).then(x=>{
+                    resolve(x)
+                }).catch(err=>{
+                    reject(err)
+                }) 
+            });
+        },
+        根据id查询修改详情({},id){
+            return new Promise((resolve, reject) => {
+                axios.get('/api-s/shops/findShopRecruitmentCopyById/'+id).then(x=>{
+                    resolve(x)
+                }).catch(err=>{
+                    reject(err)
+                })
+            });
+        },
+        更新修改详情({},obj){
+            return new Promise((resolve, reject) => {
+                axios.post('/api-s/shops/updateShopRecruitmentCopy',obj).then(x=>{
+                    resolve(x)
+                }).catch(err=>{
+                    reject(err)
                 })
             });
         }
