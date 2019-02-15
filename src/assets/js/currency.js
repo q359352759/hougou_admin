@@ -21,8 +21,9 @@ function dateFtt(val, format , add_8){
             val = val.replace(/T/g, " ").replace(/\.[\d]{3}Z/, "").replace(/(-)/g, "/"); // 将 '-' 替换成 '/'
             val = val.slice(0, val.indexOf(".")); // 删除小数点及后面的数字
         }
-        let date = chGMT(val);
-        // let date = new Date(val);
+        // let date = chGMT(val);
+        let date = new Date(val);
+        date.setHours(date.getHours() + 8);
         date.setHours(date.getHours() + 8);
         const [whole, yy, MM, dd, hh, mm, ss] = date.toISOString().match(REGEX);
         const year = new Date().getFullYear();
@@ -42,6 +43,33 @@ function dateFtt(val, format , add_8){
         }
     } else {
         return "--";
+    }
+}
+
+//yyyy.MM.dd hh:mm
+function 当前时间格式化(format, val) {
+    const REGEX = /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/;
+    if (val) {
+        var date = new Date(val);
+    } else {
+        var date = new Date();
+    }
+    date.setHours(date.getHours() + 8);
+    const [whole, yy, MM, dd, hh, mm, ss] = date.toISOString().match(REGEX);
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth() + 1;
+    const dates = new Date().getDate();
+    if (format) {
+        return format
+            .replace("yyyy", yy)
+            .replace("yy", yy.slice(2))
+            .replace("MM", MM)
+            .replace("dd", dd)
+            .replace("hh", hh)
+            .replace("mm", mm)
+            .replace("ss", ss);
+    } else {
+        return [yy, MM, dd].join("-") + " " + [hh, mm, ss].join(":");
     }
 }
 // 获取指定时间前后几天  getDateStr(天数)；
@@ -187,5 +215,6 @@ export {
     get_url,
     GetDistance,
     isAndroid,
-    过滤地区
+    过滤地区,
+    当前时间格式化
 };

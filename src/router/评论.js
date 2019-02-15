@@ -13,9 +13,7 @@ const 评论 = {
     children:[
         {
             path:'/pinglun/liebiao',
-            // component: () => import('@/views/评论管理/评论管理.vue') ,
-            component: () => import('@/views/errorPage/401') ,
-            
+            component: () => import('@/views/评论管理/评论管理.vue'),
             name:'pinglun_liebiao',
             meta: { title: '评论管理', icon: '评论', noCache: true }
         },

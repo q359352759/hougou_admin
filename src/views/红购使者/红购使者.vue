@@ -360,7 +360,7 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scope>
 
 .box_1{
     display: flex;

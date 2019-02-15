@@ -124,6 +124,7 @@
                 </el-table-column>
             </el-table>
         </div>
+        
         <!-- 法人 -->
         <el-dialog class="legal_person_box" title="法人信息" center :visible.sync="显示法人认证" width="360px">
             <farenrenzheng :details="认证详情" @setimg='getimg'/>
